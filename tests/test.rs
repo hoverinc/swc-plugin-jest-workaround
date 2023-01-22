@@ -8,7 +8,8 @@ use swc_core::{
             testing::{test, test_fixture},
         },
         visit::{as_folder, Fold},
-    },
+        // parser::{Syntax, TsConfig}
+    }
 };
 
 fn tr() -> impl Fold {
@@ -22,9 +23,26 @@ fn tr() -> impl Fold {
 }
 
 #[testing::fixture("tests/fixture/**/input.js")]
-fn test(input: PathBuf) {
+fn test_ecmascript(input: PathBuf) {
     let dir = input.parent().unwrap().to_path_buf();
     let output = dir.join("output.js");
 
     test_fixture(Default::default(), &|_| tr(), &input, &output, Default::default());
 }
+
+// TODO: I don't think we need to test TypeScript, but I thought we might want to
+// #[testing::fixture("tests/fixture/**/input.ts")]
+// fn test_typescript(input: PathBuf) {
+//     let dir = input.parent().unwrap().to_path_buf();
+//     let output = dir.join("output.js");
+
+//     test_fixture(
+//         Syntax::Typescript(TsConfig {
+//             ..Default::default()
+//         }),
+//         &|_| tr(),
+//         &input,
+//         &output,
+//         Default::default(),
+//     );
+// }

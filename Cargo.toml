@@ -23,6 +23,7 @@ swc_core = { version = "0.38.7", features = [
     "ecma_utils",
     "swc_atoms",
     "plugin_transform",
+    "__parser"
 ] }
 
 
